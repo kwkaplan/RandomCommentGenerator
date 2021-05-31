@@ -1,0 +1,243 @@
+#Many schools require instructors to enter in x number of comments every marking period for each student.  While this may be an opportunity to highlight certain student strengths and weaknesses, instructors have generally already addressed strengths and weaknesses with students and guardians, and the process of generating these comments is time-consuming, limiting and arbitrary - but required to satisfy the bureaucratic school administrations.  This application is aimed at making the process of generating these comments quicker and instructors could simply cut and paste generated comments into the relevant grading applications where they would be memorialized.
+
+import random
+#required for the random number generation of comments
+
+def main():
+       
+    school_setup()
+    class_setup()
+    student_setup()
+    #comment_generator()--doesn't look like I'm going to need this, but originally I thought I'd need another function
+
+# User can predefine Name of School, Location (city and state), instructor(last name only) and contact info (email preferred) via global variable  or by entering on lines 12-15 below.  Otherwise the system will prompt  user to update.
+
+def school_setup():
+    school_name = "undefined"
+    location = "undefined, undefined"
+    instructor = "undefined"
+    contact_info = "undefined@undefined.com"    
+    print ("School Name: " + school_name)
+    print ("Location: " + location)
+    print ("Instructor: " + instructor)
+    print ("Contact Info: " + contact_info)
+    school_status = (input("Accept: Y or N....."))
+    print ("\n")
+    while school_status == "N":
+        school_name = (input("Enter School Name:  "))
+        location = (input("Enter Location:  "))
+        instructor = (input("Enter Instructor Last Name:  "))
+        contact_info = (input("Enter Contact Info:  "))
+        print ("\n")
+        print ("School Name: " + school_name)
+        print ("Location: " + location)
+        print ("Instructor: " + instructor)
+        print ("Contact Info: " + contact_info)
+        school_status = (input("Accept: Y or N....."))
+        print ("\n")
+    
+# User will be prompted to set the class name, class period, grade (9,10,11,12 or mixed) and school year in the form of 20xx - 20xx) 
+
+def class_setup():
+    class_name = (input("Enter Class Name:  "))
+    period = (input("Enter Period:  "))
+    grade = (input("Enter Grade:  "))
+    school_year = (input("Enter School Year:  "))
+    print ("\n")
+
+# Student name and grade pairs will be entered here and will be populated to a dictionary
+def student_setup():
+    enter_student = "Y"
+    while enter_student == "Y":
+        student_name = (input("Enter Student Name: "))
+        student_grade =int(input("Enter Student Grade: "))
+        print ("\n")
+
+#these comment banks could be imported from a file, but this was my first approach.
+        positive_comments = ["The Student works well independently.",
+"Student participates well with others.",
+"Student has good work habits.",
+"Student is able to apply new ideas.",
+"Student completes work promptly.",
+"Student is always prepared for class.",
+"Student has good test grades.",
+"Student is meeting only the minimum obligations for the course.",
+"Student is at an exploratory training level.",
+"It is recommended that your child have further exploration.",
+"Student continues to be a diligent, organized and focused student.",
+"Student works hard and puts in a serious effort.",
+"Student has an aptitude for this subject.", 
+"Student asks intelligent questions and quickly grasps difficult concepts.",
+"Student encourages others to learn.",
+"Student has a strong work ethic and is a valuable team player.",
+"Student frequently offers creative, imaginative ideas and solutions.",
+"Student puts an exceptional effort into each class.", 
+"Student is an active participant with an admirable positive attitude.",
+"Student makes intelligent and positive contributions to group work.",
+"Student shows strong organizational skills.", 
+"Student helps keep the group focused.",
+"Student has achieved this good grade through consistent effort."
+]
+
+        negative_comments = [
+"Student recently transferred into this class, no grade available.",
+"Student has a medical note to be exempt from this class.",
+"Student has withdrawn from this class.",
+"Student has an incomplete grade for this class.",
+"Student is receiving Home Instruction.",
+"Student is disruptive in class.",
+"Student fails to complete homework assignments.",
+"Student violates safety procedures.",
+"Student must improve test grades.",
+"Student fails to ask for help.",
+"Excessive absences and/or tardiness of your child is affecting grade.",
+"Student exhibits poor class participation.",
+"Student shows misconduct in class.",
+"Student is unprepared for class or technical experience.",
+"Student is in danger or failing this class for the marking period.",
+"Student is in danger of failing for the year.",
+"Student has completed an insufficient number of projects.",
+"Student must use class/shop time productively.",
+"Student must keep up with classroom responsibilities.",
+"Student has difficulty staying on task.",
+"Student does not attend after school tutoring sessions.",
+"Student does not do extra credit work to improve grades.",
+"Please call to arrange a parent conference about your child.",
+"Please call me to discuss the progress of your child.",
+"Student's absences are affecting performance.",
+"Student needs constant supervision.",
+"Student is at a trainee training level.",
+"Student is at a novice training level.",
+"Student shows good technical experience potential.",
+"Student exhibits fair technical experience potential.",
+"Student has the ability to excel at a much higher level.",
+"Student's grade is being kept down by one or more assessments.",
+"Student needs to make up a test or a quiz.",
+"Student is doing well on assessments but is not performing up to potential on homework and class preparedness.",
+"Student's grade demonstrates that work is not being approached with a sense of responsibility.",
+"Student is unfocused and passive.",
+"Student needs to be more focused in class.",
+"Student is talkative and disruptive to classmates.",
+"Student is not keeping up with the homework.",
+"Student must learn to properly reference the source of research rather than merely copying text from the Internet or a textbook.",
+"Student does not seem to be interested in the work of this class.", "Student rarely volunteers with enthusiasm.",
+"Student has to be prodded and reminded to produce work.",
+"Student frequently comes late to class.",
+"Student places more importance on extracurricular activities than course work.",
+"Student does not contribute fair share of the work in group projects.",
+"Student is frequently a disruptive force in group work.",
+"Student's grade would improve if materials were reviewed each night.",
+"Student's grade would improve if quizzes and tests were carefully reviewed before handing them in.",
+"Student appears overtired at times and would benefit from better time management skills.",
+"Student seems to be giving this subject a low priority.",
+"Although Student submits work, it is not done in a timely fashion."]
+
+        neutral_comments = ["Student shows a desire for constant improvement.",
+"Student has constructive ideas.",
+"Student follows directions well.",
+"Student is able to overcome difficulties.",
+"Student provides assistance to others.",
+"Student completes homework assignments.",
+"Student completes projects.",
+"Student shows satisfactory effort.",
+"Student is working at ability level.",
+"Student shows a lack of interest and effort in work.",
+"Student must improve work and study habits.",
+"Student applies in class but still has difficulty learning material.",
+"Student is not always dressed appropriately in technical experience class.",
+"Student is at an employment entry training level.",
+"Student has excellent technical area potential.",
+"Student performance is satisfactory.",
+"Student is working to improve focus and concentration.",
+"Student demonstrates the ability to listen and shows evidence of positive response to criticism.",
+"Student exhibits exceptional sportsmanship.",
+"It is a pleasure having this student in my class.",
+"Student is always prepared and on time.",
+"Student needs to be better organized.",
+"Student is an excellent athlete.", "Student continually demonstrates a superior level of sportsmanship and is a role model for classmates.",
+"Student's grade is an accurate reflection of the amount of effort that has been put into this course.",
+"Student is making sufficient progress in this class.",
+"Student's grade accurately reflects a fair level of understanding of essential concepts.", 
+"Student would benefit from additional practice problem solving.",
+"Student understands basic concepts but has trouble applying them to problem solving.",
+"Though student has difficulty on tests, grade is improved by hard work on alternate assessments.",
+"As a result of hard work, Student's grade has improved."]
+        #acceptance = "Y" - looking into using for an instructor to accept or regenerate
+
+        if (student_grade<65):
+
+            #for students with poor scores, they will get three negative comments, but one neutral comment will appear first to balance out the negatives.  A random generator is used to scan through each list and generate a random code from the list - starting at index 0 and finishing at the index of the last code on the list (the length of the list - 1)
+
+            first_comment = (neutral_comments[(random.randint(0,len(neutral_comments)-1))])
+            print (first_comment)
+            second_comment = (negative_comments[(random.randint(0,len(negative_comments)-1))])
+            print (second_comment)
+            third_comment = (negative_comments[(random.randint(0,len(negative_comments)-1))])
+            print (third_comment)
+            fourth_comment = (negative_comments[(random.randint(0,len(negative_comments)-1))])
+            print (fourth_comment)
+            print ("\n")
+            #print (student_report)
+            enter_student = (input("Enter another student (Y or N)?:  "))
+            print ("\n")
+        #while acceptance == "Y":
+        if (64<student_grade<86):
+
+            #for students with average scores, they will get three neutral comments, but one positive comment will appear first to accentuate their efforts.
+
+            first_comment = (positive_comments[(random.randint(0,len(positive_comments)-1))])
+            print (first_comment)
+            second_comment = (neutral_comments[(random.randint(0,len(neutral_comments)-1))])
+            print (second_comment)
+            third_comment = (neutral_comments[(random.randint(0,len(neutral_comments)-1))])
+            print (third_comment)
+            fourth_comment = (neutral_comments[(random.randint(0,len(neutral_comments)-1))])
+            print (fourth_comment)
+            print ("\n")
+            #working on code to allow the teacher to accept or reject generated comments
+                #acceptance = (input("Accept (Y or N)?: "))
+                #while acceptance == "N":
+                    #print ("\n")
+                    #print ("regenerating.............")
+                    #break
+            enter_student = (input("Enter another student (Y or N)?:  "))
+            print ("\n")
+
+        if (student_grade>85):
+
+            #for students with excellent scores, they will get three positive comments, but one neutral comment will appear at the end to provide any area for growth
+
+            first_comment = (positive_comments[(random.randint(0,len(positive_comments)-1))])
+            print (first_comment)
+            second_comment = (positive_comments[(random.randint(0,len(positive_comments)-1))])
+            print (second_comment)
+            third_comment = (positive_comments[(random.randint(0,len(positive_comments)-1))])
+            print (third_comment)
+            fourth_comment = (neutral_comments[(random.randint(0,len(neutral_comments)-1))])
+            print (fourth_comment)
+            print ("\n")
+            enter_student = (input("Enter another student (Y or N)?:  "))
+            print ("\n")
+
+#working on code to encapsulate student report into a function so that the code is streamlined
+def student_report():
+        print ("School Name: " + school_name)
+        print ("Location: " + location)
+        print ("Instructor: " + instructor)
+        print ("Contact Info: " + contact_info)
+        print ("Class Name: " + class_name)
+        print ("Period: " + period)
+        print ("Grade: " + grade)
+        print ("School Year: " + school_year)
+        print ("Student Name: " + student_name)
+        print ("Student Grade: " + student_grade)
+        print ("Instructor: " + instructor)
+        print ("Contact Info: " + contact_info)
+        print ("---------------------------------------------")
+        print (first_comment)
+        print (second_comment)
+        print (third_comment)
+        print (fourth_comment)
+    
+if __name__ == '__main__':
+    main()
